@@ -168,6 +168,139 @@ while state is not None:
 
 for s in reversed(path):
     print(s)
+6)Vacuum Cleaner Problem
+
+rooms = {'A': 'Dirty', 'B': 'Dirty'}
+location = 'A'
+
+while 'Dirty' in rooms.values():
+    print("Vacuum at", location)
+    rooms[location] = 'Clean'
+    print(location, "is Clean")
+
+    if location == 'A':
+        location = 'B'
+    else:
+        location = 'A'
+
+print("All rooms are Clean")
+7)Python program to implement BFS
+
+from collections import deque
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': [],
+    'F': []
+}
+
+visited = set()
+queue = deque(['A'])
+
+while queue:
+    node = queue.popleft()
+    if node not in visited:
+        print(node, end=" ")
+        visited.add(node)
+        queue.extend(graph[node])
+
+8)Python program to implement DFS
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': [],
+    'F': []
+}
+
+visited = set()
+
+def dfs(node):
+    if node not in visited:
+        print(node, end=" ")
+        visited.add(node)
+        for neighbor in graph[node]:
+            dfs(neighbor)
+
+dfs('A')
+9)Python program to implement Travelling Salesman Problem (TSP)
+
+from itertools import permutations
+
+graph = [
+    [0, 10, 15, 20],
+    [10, 0, 35, 25],
+    [15, 35, 0, 30],
+    [20, 25, 30, 0]
+]
+
+n = len(graph)
+best_cost = float('inf')
+best_path = None
+
+for p in permutations(range(1, n)):
+    path = (0,) + p + (0,)
+    cost = sum(graph[path[i]][path[i+1]]
+               for i in range(n))
+
+    if cost < best_cost:
+        best_cost = cost
+        best_path = path
+
+print("Shortest Path:", " -> ".join(str(x+1) for x in best_path))
+print("Minimum Cost:", best_cost)
+10)Python program to implement A* Algorithm
+
+import heapq
+
+graph = {
+    'A': [('B', 1), ('C', 3)],
+    'B': [('D', 1), ('E', 5)],
+    'C': [('F', 2)],
+    'D': [('E', 1)],
+    'E': [('G', 2)],
+    'F': [('G', 1)],
+    'G': []
+}
+
+h = {'A': 4, 'B': 3, 'C': 3, 'D': 2,
+     'E': 1, 'F': 1, 'G': 0}
+
+pq = [(h['A'], 0, 'A', ['A'])]
+visited = set()
+
+while pq:
+    f, cost, node, path = heapq.heappop(pq)
+
+    if node == 'G':
+        print("Shortest Path:", " -> ".join(path))
+        print("Total Cost:", cost)
+        break
+
+    if node in visited:
+        continue
+    visited.add(node)
+
+    for neighbor, weight in graph[node]:
+        if neighbor not in visited:
+            new_cost = cost + weight
+            heapq.heappush(
+                pq,
+                (new_cost + h[neighbor], new_cost,
+                 neighbor, path + [neighbor])
+            )
+
+
+
+
+
+
+
 
 
 
